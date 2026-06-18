@@ -14,6 +14,7 @@ const useTaskStore = create(
         status: 'all',
         priority: 'all',
         search: '',
+        sortBy: 'newest',
       },
 
       // ─── Actions ─────────────────────────────────────────

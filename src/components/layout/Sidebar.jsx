@@ -53,13 +53,13 @@ export default function Sidebar({ isOpen, onClose }) {
       {/* Mobile Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-gray-900/50 z-40 md:hidden transition-opacity"
+          className="fixed inset-0 bg-gray-900/50 z-40 lg:hidden transition-opacity"
           onClick={onClose}
         />
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 flex flex-col h-full transform transition-transform duration-300 ease-in-out md:static md:translate-x-0 md:h-screen md:top-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 flex flex-col h-full transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:h-screen lg:top-0 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -75,7 +75,7 @@ export default function Sidebar({ isOpen, onClose }) {
           </div>
           <button
             onClick={onClose}
-            className="md:hidden p-2 -mr-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg focus:outline-none"
+            className="lg:hidden p-2 -mr-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg focus:outline-none"
             aria-label="Close sidebar"
           >
             <X className="w-5 h-5" />

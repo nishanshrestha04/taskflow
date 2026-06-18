@@ -123,10 +123,6 @@ export default function DashboardPage() {
     if (result?.success) toast('Task deleted', 'info');
   };
 
-  const handleSearch = (e) => {
-    handleFilterChange('search', e.target.value);
-  };
-
   const highPriorityTask =
     tasks.find((t) => t.priority === 'high' && t.status !== 'done') || tasks[0];
 
@@ -135,18 +131,18 @@ export default function DashboardPage() {
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <header className="h-20 px-4 md:px-8 flex items-center justify-between border-b border-transparent bg-gray-50 shrink-0">
+        <header className="h-20 px-4 lg:px-8 flex items-center justify-between border-b border-transparent bg-gray-50 shrink-0">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="md:hidden p-2 -ml-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="lg:hidden p-2 -ml-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               aria-label="Open sidebar"
             >
               <Menu className="w-6 h-6" />
             </button>
             <div>
               <h1 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">
-                Good morning, {user?.name?.split(' ')[0] || 'Ram'} 👋
+                Good morning, {user?.name?.split(' ')[0]}
               </h1>
               <p className="text-xs md:text-sm text-gray-500 mt-0.5 md:mt-1 hidden sm:block">
                 {new Date().toLocaleDateString('en-US', {
@@ -158,36 +154,13 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search tasks..."
-                value={filter.search}
-                onChange={handleSearch}
-                className="w-64 pl-9 pr-10 py-2.5 text-sm bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-sans font-medium text-gray-400 bg-gray-50 border border-gray-200 rounded">
-                  ⌘
-                </kbd>
-                <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-sans font-medium text-gray-400 bg-gray-50 border border-gray-200 rounded">
-                  K
-                </kbd>
-              </div>
-            </div>
-
-            <button className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
-              <Bell className="w-6 h-6" />
-              <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-indigo-600 border-2 border-gray-50 rounded-full"></span>
-            </button>
 
             <Button
               onClick={handleOpenCreate}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg px-4 py-2.5 shadow-sm text-sm font-medium"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 shadow-sm text-sm font-medium shrink-0"
             >
-              <Plus className="w-4 h-4" />
-              New task
+              <Plus className="w-5 h-5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">New task</span>
             </Button>
           </div>
         </header>
@@ -203,8 +176,8 @@ export default function DashboardPage() {
                   {error}
                 </div>
               )}
-              <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-11 gap-4 mb-8">
-                <div className="col-span-1 md:col-span-3 lg:col-span-4 bg-white border border-gray-100 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+              <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-8">
+                <div className="col-span-1 bg-white border border-gray-100 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-bold text-gray-900">Today's focus</h3>
@@ -265,7 +238,7 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                <div className="col-span-1 md:col-span-3 lg:col-span-7 grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="col-span-1 xl:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <StatCard
                     label="Total tasks"
                     value={stats.total}

@@ -126,7 +126,7 @@ const TaskList = memo(function TaskList({
                   </td>
                   <td className="px-4 py-4">
                     <div className="relative flex justify-end items-center h-8 w-14 ml-auto">
-                      <div className="absolute right-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 bg-gray-50 z-10">
+                      <div className="absolute right-0 flex items-center gap-1 bg-gray-50 z-10">
                         <Button
                           variant="ghost"
                           size="icon"

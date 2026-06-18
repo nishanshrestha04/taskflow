@@ -16,7 +16,11 @@ const PRIORITY_OPTIONS = [
   { value: 'low', label: 'Low' },
 ];
 
-const SORT_OPTIONS = [{ value: 'due_date', label: 'Due date' }];
+const SORT_OPTIONS = [
+  { value: 'newest', label: 'Newest first' },
+  { value: 'due_asc', label: 'Due soon' },
+  { value: 'due_desc', label: 'Due late' },
+];
 
 export default function TaskFilters({ filter, onFilterChange, taskCount, view, onViewChange }) {
   const handleStatus = useCallback(
@@ -29,57 +33,57 @@ export default function TaskFilters({ filter, onFilterChange, taskCount, view, o
   );
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+    <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-6">
       {/* View toggles */}
-      <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-1 shadow-sm">
+      <div className="flex items-center w-full lg:w-auto gap-1 bg-white border border-gray-200 rounded-lg p-1 shadow-sm shrink-0">
         <button
           onClick={() => onViewChange('list')}
-          className={`flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors outline-none ${
+          className={`flex-1 lg:flex-none flex justify-center items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors outline-none ${
             view === 'list'
               ? 'bg-indigo-50 text-indigo-700'
               : 'text-gray-500 hover:text-gray-700'
           }`}
         >
           <List className="w-4 h-4" />
-          List view
+          <span className="hidden sm:inline">List view</span>
         </button>
         <button
           onClick={() => onViewChange('card')}
-          className={`flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors outline-none ${
+          className={`flex-1 lg:flex-none flex justify-center items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors outline-none ${
             view === 'card'
               ? 'bg-indigo-50 text-indigo-700'
               : 'text-gray-500 hover:text-gray-700'
           }`}
         >
           <LayoutGrid className="w-4 h-4" />
-          Card view
+          <span className="hidden sm:inline">Card view</span>
         </button>
       </div>
 
       {/* Filters row */}
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full lg:w-auto">
         <Select
           options={STATUS_OPTIONS}
           value={filter.status}
           onChange={handleStatus}
-          className="text-sm border-gray-200 shadow-sm min-w-32.5"
+          wrapperClassName="flex-1 sm:flex-none min-w-0 sm:min-w-32"
+          className="text-sm border-gray-200 shadow-sm"
         />
         <Select
           options={PRIORITY_OPTIONS}
           value={filter.priority}
           onChange={handlePriority}
-          className="text-sm border-gray-200 shadow-sm min-w-32.5"
+          wrapperClassName="flex-1 sm:flex-none min-w-0 sm:min-w-32"
+          className="text-sm border-gray-200 shadow-sm"
         />
-        <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50">
-          <SlidersHorizontal className="w-4 h-4" />
-          Filters
-        </button>
-        <div className="w-px h-6 bg-gray-200 mx-1"></div>
-        <div className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg shadow-sm">
-          <ArrowUpDown className="w-4 h-4" />
-          Due date
-          <ChevronDown className="w-4 h-4 text-gray-400" />
-        </div>
+        <div className="hidden sm:block w-px h-6 bg-gray-200 mx-1"></div>
+        <Select
+          options={SORT_OPTIONS}
+          value={filter.sortBy || 'newest'}
+          onChange={(e) => onFilterChange('sortBy', e.target.value)}
+          wrapperClassName="flex-1 sm:flex-none min-w-0 sm:min-w-36"
+          className="text-sm border-gray-200 shadow-sm"
+        />
       </div>
     </div>
   );

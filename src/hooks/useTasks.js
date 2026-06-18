@@ -32,8 +32,16 @@ export function useTasks() {
       )
     }
 
+    if (filter.sortBy === 'due_asc') {
+      result.sort((a, b) => new Date(a.dueDate || '9999-12-31') - new Date(b.dueDate || '9999-12-31'))
+    } else if (filter.sortBy === 'due_desc') {
+      result.sort((a, b) => new Date(b.dueDate || '0000-01-01') - new Date(a.dueDate || '0000-01-01'))
+    } else {
+      result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    }
+
     return result
-  }, [tasks, filter.status, filter.priority, filter.search])
+  }, [tasks, filter.status, filter.priority, filter.search, filter.sortBy])
 
   // ─── useMemo: summary stats for dashboard ───────────────────────────────────
   const stats = useMemo(

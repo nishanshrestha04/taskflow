@@ -42,7 +42,7 @@ const TaskCard = memo(function TaskCard({
           </h3>
         </div>
         {/* Actions — visible on hover */}
-        <div className="flex gap-1 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="flex gap-1 shrink-0 transition-opacity">
           <Button
             variant="ghost"
             size="icon"
