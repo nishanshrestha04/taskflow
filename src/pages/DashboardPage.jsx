@@ -1,9 +1,11 @@
 import { useState, useCallback } from 'react';
+import { Menu, Search, Bell, Plus, ClipboardList, Zap, CheckCircle2, Clock, ChevronRight, AlertCircle } from 'lucide-react';
 import { useTasks } from '../hooks/useTasks';
 import { useAuth } from '../hooks/useAuth';
 import TaskForm from '../components/tasks/TaskForm';
 import TaskFilters from '../components/tasks/TaskFilters';
 import TaskList from '../components/tasks/TaskList';
+import TaskCard from '../components/tasks/TaskCard';
 import Sidebar from '../components/layout/Sidebar';
 import Modal from '../components/ui/Modal';
 import Button from '../components/ui/Button';
@@ -78,6 +80,8 @@ export default function DashboardPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const [view, setView] = useState('list');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleOpenCreate = useCallback(() => {
     setEditingTask(null);
@@ -128,37 +132,34 @@ export default function DashboardPage() {
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
-      <Sidebar />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <header className="h-20 px-8 flex items-center justify-between border-b border-transparent bg-gray-50 shrink-0">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
-              Good morning, {user?.name?.split(' ')[0] || 'Ram'} 👋
-            </h1>
-            <p className="text-sm text-gray-500 mt-1">
-              {new Date().toLocaleDateString('en-US', {
-                weekday: 'long',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </p>
+        <header className="h-20 px-4 md:px-8 flex items-center justify-between border-b border-transparent bg-gray-50 shrink-0">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="md:hidden p-2 -ml-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              aria-label="Open sidebar"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">
+                Good morning, {user?.name?.split(' ')[0] || 'Ram'} 👋
+              </h1>
+              <p className="text-xs md:text-sm text-gray-500 mt-0.5 md:mt-1 hidden sm:block">
+                {new Date().toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </p>
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <div className="relative">
-              <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search tasks..."
@@ -177,19 +178,7 @@ export default function DashboardPage() {
             </div>
 
             <button className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                />
-              </svg>
+              <Bell className="w-6 h-6" />
               <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-indigo-600 border-2 border-gray-50 rounded-full"></span>
             </button>
 
@@ -197,19 +186,7 @@ export default function DashboardPage() {
               onClick={handleOpenCreate}
               className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg px-4 py-2.5 shadow-sm text-sm font-medium"
             >
-              <svg
-                className="w-4 h-4 mr-1.5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
+              <Plus className="w-4 h-4" />
               New task
             </Button>
           </div>
@@ -222,28 +199,14 @@ export default function DashboardPage() {
             <>
               {error && (
                 <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700 flex items-center gap-2">
-                  <svg
-                    className="w-4 h-4 shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+                  <AlertCircle className="w-4 h-4 shrink-0" />
                   {error}
                 </div>
               )}
-
               <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-11 gap-4 mb-8">
                 <div className="col-span-1 md:col-span-3 lg:col-span-4 bg-white border border-gray-100 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-red-500">🎯</span>
                       <h3 className="font-bold text-gray-900">Today's focus</h3>
                     </div>
                     <p className="text-sm text-gray-500 mb-4">
@@ -263,7 +226,7 @@ export default function DashboardPage() {
                                 ∧ High priority
                               </span>
                               <span className="flex items-center gap-1">
-                                📅 Due{' '}
+                                Due{' '}
                                 {highPriorityTask.dueDate
                                   ? new Date(
                                       highPriorityTask.dueDate,
@@ -276,19 +239,7 @@ export default function DashboardPage() {
                             </div>
                           </div>
                         </div>
-                        <svg
-                          className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
+                        <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
                       </div>
                     )}
                   </div>
@@ -319,61 +270,19 @@ export default function DashboardPage() {
                     label="Total tasks"
                     value={stats.total}
                     color="indigo"
-                    icon={
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
-                        />
-                      </svg>
-                    }
+                    icon={<ClipboardList className="w-5 h-5" />}
                   />
                   <StatCard
                     label="In progress"
                     value={stats.inProgress}
                     color="blue"
-                    icon={
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 10V3L4 14h7v7l9-11h-7z"
-                        />
-                      </svg>
-                    }
+                    icon={<Zap className="w-5 h-5" />}
                   />
                   <StatCard
                     label="Completed"
                     value={stats.done}
                     color="green"
-                    icon={
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    }
+                    icon={<CheckCircle2 className="w-5 h-5" />}
                   />
                   <StatCard
                     label="Overdue"
@@ -386,38 +295,47 @@ export default function DashboardPage() {
                       ).length
                     }
                     color="red"
-                    icon={
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    }
+                    icon={<Clock className="w-5 h-5" />}
                   />
                 </div>
               </div>
-
               <TaskFilters
                 filter={filter}
                 onFilterChange={handleFilterChange}
                 taskCount={tasks.length}
+                view={view}
+                onViewChange={setView}
               />
-
-              <TaskList
-                tasks={tasks}
-                onStatusChange={handleStatusChange}
-                onEdit={handleOpenEdit}
-                onDelete={handleDeleteWithToast}
-                isSubmitting={isSubmitting}
-              />
+              {view === 'list' ? (
+                <TaskList
+                  tasks={tasks}
+                  onStatusChange={handleStatusChange}
+                  onEdit={handleOpenEdit}
+                  onDelete={handleDeleteWithToast}
+                  isSubmitting={isSubmitting}
+                />
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {tasks.length > 0 ? (
+                    tasks.map((task) => (
+                      <TaskCard
+                        key={task.id}
+                        task={task}
+                        onStatusChange={handleStatusChange}
+                        onEdit={handleOpenEdit}
+                        onDelete={handleDeleteWithToast}
+                        isSubmitting={isSubmitting}
+                      />
+                    ))
+                  ) : (
+                    <div className="col-span-full text-center py-16 text-gray-500 bg-white rounded-xl border border-gray-200">
+                      <p className="font-medium text-gray-700">
+                        No tasks found
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           )}
         </main>

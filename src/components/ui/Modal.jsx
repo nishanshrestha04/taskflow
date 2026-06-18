@@ -1,4 +1,5 @@
 import { useEffect, useCallback } from 'react';
+import { X } from 'lucide-react';
 import Button from './Button';
 
 export default function Modal({
@@ -68,19 +69,7 @@ export default function Modal({
             onClick={onClose}
             aria-label="Close modal"
           >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <X className="w-4 h-4" />
           </Button>
         </div>
         {/* Content */}

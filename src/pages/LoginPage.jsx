@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Target, AlertCircle } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
@@ -54,19 +55,7 @@ export default function LoginPage() {
         {/* Brand */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-12 h-12 bg-indigo-600 rounded-2xl mb-4">
-            <svg
-              className="w-6 h-6 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
-              />
-            </svg>
+            <Target className="w-6 h-6 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900">TaskFlow</h1>
           <p className="text-sm text-gray-500 mt-1">
@@ -79,19 +68,7 @@ export default function LoginPage() {
           {/* Global error */}
           {error && (
             <div className="mb-4 flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
-              <svg
-                className="w-4 h-4 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+            <AlertCircle className="w-4 h-4 shrink-0" />
               {error}
             </div>
           )}

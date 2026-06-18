@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
+import { CheckCircle2, XCircle, Info } from 'lucide-react';
 
 let toastQueue = [];
 let listeners = [];
@@ -14,51 +15,9 @@ export function toast(message, type = 'success', duration = 3500) {
 }
 
 const icons = {
-  success: (
-    <svg
-      className="w-4 h-4 shrink-0"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M5 13l4 4L19 7"
-      />
-    </svg>
-  ),
-  error: (
-    <svg
-      className="w-4 h-4 shrink-0"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M6 18L18 6M6 6l12 12"
-      />
-    </svg>
-  ),
-  info: (
-    <svg
-      className="w-4 h-4 shrink-0"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20A10 10 0 0012 2z"
-      />
-    </svg>
-  ),
+  success: <CheckCircle2 className="w-4 h-4 shrink-0" />,
+  error: <XCircle className="w-4 h-4 shrink-0" />,
+  info: <Info className="w-4 h-4 shrink-0" />,
 };
 
 const styles = {
@@ -79,7 +38,7 @@ export default function Toaster() {
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-4 z-[100] flex flex-col gap-2 pointer-events-none">
+    <div className="fixed bottom-4 right-4 z-100 flex flex-col gap-2 pointer-events-none">
       {toasts.map((t) => (
         <div
           key={t.id}
