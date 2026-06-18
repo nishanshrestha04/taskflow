@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import useAuthStore from '../../store/authStore';
 import {
@@ -150,7 +149,7 @@ export default function Sidebar({ isOpen, onClose }) {
           >
             <div className="flex items-center gap-3 min-w-0">
               <div className="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-sm font-bold shrink-0">
-                {user?.avatar || user?.name?.slice(0, 2).toUpperCase() || 'RT'}
+                {user?.avatar}
               </div>
               <div className="min-w-0 flex-1 text-left">
                 <p className="text-sm font-semibold text-gray-900 truncate">

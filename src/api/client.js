@@ -105,6 +105,7 @@ export const authAPI = {
       userId: user.id,
       email: user.email,
       name: user.name,
+      avatar: user.avatar,
     });
     return {
       token,

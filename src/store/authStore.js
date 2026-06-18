@@ -72,6 +72,7 @@ const useAuthStore = create(
                 id: payload.userId,
                 email: payload.email,
                 name: payload.name,
+                avatar: payload.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase(),
               },
             });
           } else {

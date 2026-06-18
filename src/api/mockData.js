@@ -5,14 +5,12 @@ export const USERS = [
     email: 'nishan@gmail.com',
     password: 'nishan123',
     name: 'Nishan Shrestha',
-    avatar: 'NS',
   },
   {
     id: 2,
     email: 'shrestha@gmail.com',
     password: 'shrestha123',
     name: 'Ram Thapa',
-    avatar: 'RT',
   },
 ];
 
