@@ -1,19 +1,19 @@
-import { useState, useCallback } from 'react'
-import Input from '../ui/Input'
-import Select from '../ui/Select'
-import Button from '../ui/Button'
+import { useState, useCallback } from 'react';
+import Input from '../ui/Input';
+import Select from '../ui/Select';
+import Button from '../ui/Button';
 
 const STATUS_OPTIONS = [
   { value: 'todo', label: 'To Do' },
   { value: 'in-progress', label: 'In Progress' },
   { value: 'done', label: 'Done' },
-]
+];
 
 const PRIORITY_OPTIONS = [
   { value: 'high', label: 'High' },
   { value: 'medium', label: 'Medium' },
   { value: 'low', label: 'Low' },
-]
+];
 
 const DEFAULT_FORM = {
   title: '',
@@ -23,47 +23,58 @@ const DEFAULT_FORM = {
   dueDate: '',
   assignee: '',
   tags: '',
-}
+};
 
-export default function TaskForm({ initialData, onSubmit, onCancel, isSubmitting }) {
+export default function TaskForm({
+  initialData,
+  onSubmit,
+  onCancel,
+  isSubmitting,
+}) {
   const [form, setForm] = useState(() =>
     initialData
       ? {
           ...initialData,
-          tags: Array.isArray(initialData.tags) ? initialData.tags.join(', ') : '',
+          tags: Array.isArray(initialData.tags)
+            ? initialData.tags.join(', ')
+            : '',
         }
-      : DEFAULT_FORM
-  )
-  const [errors, setErrors] = useState({})
+      : DEFAULT_FORM,
+  );
+  const [errors, setErrors] = useState({});
 
   const handleChange = useCallback((e) => {
-    const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
-    setErrors((prev) => ({ ...prev, [name]: '' }))
-  }, [])
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: '' }));
+  }, []);
 
   const validate = () => {
-    const errs = {}
-    if (!form.title.trim()) errs.title = 'Title is required'
-    if (form.title.length > 100) errs.title = 'Title must be under 100 characters'
-    return errs
-  }
+    const errs = {};
+    if (!form.title.trim()) errs.title = 'Title is required';
+    if (form.title.length > 100)
+      errs.title = 'Title must be under 100 characters';
+    return errs;
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const errs = validate()
+    e.preventDefault();
+    const errs = validate();
     if (Object.keys(errs).length) {
-      setErrors(errs)
-      return
+      setErrors(errs);
+      return;
     }
     const payload = {
       ...form,
       tags: form.tags
-        ? form.tags.split(',').map((t) => t.trim()).filter(Boolean)
+        ? form.tags
+            .split(',')
+            .map((t) => t.trim())
+            .filter(Boolean)
         : [],
-    }
-    onSubmit(payload)
-  }
+    };
+    onSubmit(payload);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
@@ -78,7 +89,9 @@ export default function TaskForm({ initialData, onSubmit, onCancel, isSubmitting
         autoFocus
       />
       <div>
-        <label className="text-sm font-medium text-gray-700 mb-1 block">Description</label>
+        <label className="text-sm font-medium text-gray-700 mb-1 block">
+          Description
+        </label>
         <textarea
           name="description"
           value={form.description}
@@ -129,7 +142,12 @@ export default function TaskForm({ initialData, onSubmit, onCancel, isSubmitting
         hint="Separate multiple tags with commas"
       />
       <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
-        <Button type="button" variant="secondary" onClick={onCancel} disabled={isSubmitting}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onCancel}
+          disabled={isSubmitting}
+        >
           Cancel
         </Button>
         <Button type="submit" isLoading={isSubmitting}>
@@ -137,5 +155,5 @@ export default function TaskForm({ initialData, onSubmit, onCancel, isSubmitting
         </Button>
       </div>
     </form>
-  )
+  );
 }

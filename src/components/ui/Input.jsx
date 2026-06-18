@@ -1,10 +1,10 @@
-import { forwardRef } from 'react'
+import { forwardRef } from 'react';
 
 const Input = forwardRef(function Input(
   { label, error, hint, id, className = '', ...props },
-  ref
+  ref,
 ) {
-  const inputId = id || label?.toLowerCase().replace(/\s+/g, '-')
+  const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <div className="flex flex-col gap-1">
@@ -29,10 +29,12 @@ const Input = forwardRef(function Input(
         ].join(' ')}
         {...props}
       />
-      {error && <p className="text-xs text-red-500 flex items-center gap-1">{error}</p>}
+      {error && (
+        <p className="text-xs text-red-500 flex items-center gap-1">{error}</p>
+      )}
       {hint && !error && <p className="text-xs text-gray-500">{hint}</p>}
     </div>
-  )
-})
+  );
+});
 
-export default Input
+export default Input;

@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import LoginPage from './pages/LoginPage'
-import DashboardPage from './pages/DashboardPage'
-import ProtectedRoute from './components/ProtectedRoute'
-import Toaster from './components/ui/Toast'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import DashboardPage from './pages/DashboardPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import Toaster from './components/ui/Toast';
 
 export default function App() {
   return (
@@ -21,5 +21,5 @@ export default function App() {
       </Routes>
       <Toaster />
     </BrowserRouter>
-  )
+  );
 }

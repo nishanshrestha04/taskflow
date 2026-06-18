@@ -13,7 +13,7 @@ const variants = {
   warning: 'bg-amber-100 text-amber-700',
   danger: 'bg-red-100 text-red-700',
   neutral: 'bg-gray-100 text-gray-600',
-}
+};
 
 const labels = {
   todo: 'To Do',
@@ -22,11 +22,15 @@ const labels = {
   high: 'High',
   medium: 'Medium',
   low: 'Low',
-}
+};
 
-export default function Badge({ variant = 'neutral', children, className = '' }) {
-  const colorClass = variants[variant] || variants.neutral
-  const displayText = children ?? labels[variant] ?? variant
+export default function Badge({
+  variant = 'neutral',
+  children,
+  className = '',
+}) {
+  const colorClass = variants[variant] || variants.neutral;
+  const displayText = children ?? labels[variant] ?? variant;
 
   return (
     <span
@@ -38,5 +42,5 @@ export default function Badge({ variant = 'neutral', children, className = '' })
     >
       {displayText}
     </span>
-  )
+  );
 }

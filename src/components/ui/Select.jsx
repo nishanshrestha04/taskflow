@@ -1,10 +1,10 @@
-import { forwardRef } from 'react'
+import { forwardRef } from 'react';
 
 const Select = forwardRef(function Select(
   { label, error, options = [], placeholder, className = '', id, ...props },
-  ref
+  ref,
 ) {
-  const selectId = id || label?.toLowerCase().replace(/\s+/g, '-')
+  const selectId = id || label?.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <div className="flex flex-col gap-1">
@@ -39,7 +39,7 @@ const Select = forwardRef(function Select(
       </select>
       {error && <p className="text-xs text-red-500">{error}</p>}
     </div>
-  )
-})
+  );
+});
 
-export default Select
+export default Select;

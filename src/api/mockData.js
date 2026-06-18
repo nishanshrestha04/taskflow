@@ -1,15 +1,28 @@
 // Simulated users
 export const USERS = [
-  { id: 1, email: 'nishan@gmail.com', password: 'nishan123', name: 'Nishan Shrestha', avatar: 'NS' },
-  { id: 2, email: 'shrestha@gmail.com', password: 'shrestha123', name: 'Ram Thapa', avatar: 'RT' },
-]
+  {
+    id: 1,
+    email: 'nishan@gmail.com',
+    password: 'nishan123',
+    name: 'Nishan Shrestha',
+    avatar: 'NS',
+  },
+  {
+    id: 2,
+    email: 'shrestha@gmail.com',
+    password: 'shrestha123',
+    name: 'Ram Thapa',
+    avatar: 'RT',
+  },
+];
 
 // Simulated task data
 export const INITIAL_TASKS = [
   {
     id: 1,
     title: 'Design new landing page',
-    description: 'Create wireframes and high-fidelity mockups for the marketing site redesign.',
+    description:
+      'Create wireframes and high-fidelity mockups for the marketing site redesign.',
     status: 'in-progress',
     priority: 'high',
     dueDate: '2025-07-10',
@@ -20,7 +33,8 @@ export const INITIAL_TASKS = [
   {
     id: 2,
     title: 'Fix auth token refresh bug',
-    description: 'Users are being logged out unexpectedly. Investigate token refresh logic.',
+    description:
+      'Users are being logged out unexpectedly. Investigate token refresh logic.',
     status: 'todo',
     priority: 'high',
     dueDate: '2025-06-25',
@@ -31,7 +45,8 @@ export const INITIAL_TASKS = [
   {
     id: 3,
     title: 'Write API documentation',
-    description: 'Document all REST endpoints with examples using OpenAPI spec.',
+    description:
+      'Document all REST endpoints with examples using OpenAPI spec.',
     status: 'todo',
     priority: 'medium',
     dueDate: '2025-07-15',
@@ -42,7 +57,8 @@ export const INITIAL_TASKS = [
   {
     id: 4,
     title: 'Set up CI/CD pipeline',
-    description: 'Configure GitHub Actions for automated testing and deployment to staging.',
+    description:
+      'Configure GitHub Actions for automated testing and deployment to staging.',
     status: 'done',
     priority: 'medium',
     dueDate: '2025-06-20',
@@ -53,7 +69,8 @@ export const INITIAL_TASKS = [
   {
     id: 5,
     title: 'User onboarding flow',
-    description: 'Implement step-by-step onboarding for new users after signup.',
+    description:
+      'Implement step-by-step onboarding for new users after signup.',
     status: 'in-progress',
     priority: 'low',
     dueDate: '2025-07-20',
@@ -64,7 +81,8 @@ export const INITIAL_TASKS = [
   {
     id: 6,
     title: 'Performance audit',
-    description: 'Run Lighthouse audits and optimize bundle size, image loading, and TTI.',
+    description:
+      'Run Lighthouse audits and optimize bundle size, image loading, and TTI.',
     status: 'todo',
     priority: 'low',
     dueDate: '2025-07-30',
@@ -72,4 +90,4 @@ export const INITIAL_TASKS = [
     tags: ['performance'],
     createdAt: '2025-06-12',
   },
-]
+];

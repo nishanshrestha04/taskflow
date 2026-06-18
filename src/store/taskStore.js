@@ -1,6 +1,6 @@
-import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
-import { tasksAPI } from '../api/client'
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { tasksAPI } from '../api/client';
 
 const useTaskStore = create(
   devtools(
@@ -18,54 +18,57 @@ const useTaskStore = create(
 
       // ─── Actions ─────────────────────────────────────────
       fetchTasks: async () => {
-        set({ isLoading: true, error: null })
+        set({ isLoading: true, error: null });
         try {
-          const tasks = await tasksAPI.getAll()
-          set({ tasks, isLoading: false })
+          const tasks = await tasksAPI.getAll();
+          set({ tasks, isLoading: false });
         } catch (err) {
-          set({ error: err.message, isLoading: false })
+          set({ error: err.message, isLoading: false });
         }
       },
 
       createTask: async (taskData) => {
-        set({ isSubmitting: true, error: null })
+        set({ isSubmitting: true, error: null });
         try {
-          const newTask = await tasksAPI.create(taskData)
-          set((state) => ({ tasks: [newTask, ...state.tasks], isSubmitting: false }))
-          return { success: true }
+          const newTask = await tasksAPI.create(taskData);
+          set((state) => ({
+            tasks: [newTask, ...state.tasks],
+            isSubmitting: false,
+          }));
+          return { success: true };
         } catch (err) {
-          set({ error: err.message, isSubmitting: false })
-          return { success: false, error: err.message }
+          set({ error: err.message, isSubmitting: false });
+          return { success: false, error: err.message };
         }
       },
 
       updateTask: async (id, updates) => {
-        set({ isSubmitting: true, error: null })
+        set({ isSubmitting: true, error: null });
         try {
-          const updated = await tasksAPI.update(id, updates)
+          const updated = await tasksAPI.update(id, updates);
           set((state) => ({
             tasks: state.tasks.map((t) => (t.id === id ? updated : t)),
             isSubmitting: false,
-          }))
-          return { success: true }
+          }));
+          return { success: true };
         } catch (err) {
-          set({ error: err.message, isSubmitting: false })
-          return { success: false, error: err.message }
+          set({ error: err.message, isSubmitting: false });
+          return { success: false, error: err.message };
         }
       },
 
       deleteTask: async (id) => {
-        set({ isSubmitting: true, error: null })
+        set({ isSubmitting: true, error: null });
         try {
-          await tasksAPI.delete(id)
+          await tasksAPI.delete(id);
           set((state) => ({
             tasks: state.tasks.filter((t) => t.id !== id),
             isSubmitting: false,
-          }))
-          return { success: true }
+          }));
+          return { success: true };
         } catch (err) {
-          set({ error: err.message, isSubmitting: false })
-          return { success: false, error: err.message }
+          set({ error: err.message, isSubmitting: false });
+          return { success: false, error: err.message };
         }
       },
 
@@ -74,8 +77,8 @@ const useTaskStore = create(
 
       clearError: () => set({ error: null }),
     }),
-    { name: 'TaskStore' }
-  )
-)
+    { name: 'TaskStore' },
+  ),
+);
 
-export default useTaskStore
+export default useTaskStore;
