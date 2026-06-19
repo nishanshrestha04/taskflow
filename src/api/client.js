@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {
   getTokenFromStorage,
-  isTokenValid,
   removeTokenFromStorage,
 } from '../utils/jwt';
 
@@ -13,8 +12,6 @@ const apiClient = axios.create({
   },
 });
 
-// ─── REQUEST INTERCEPTOR ─────────────────────────────────────────────────────
-// Automatically attaches JWT token to every outgoing request
 apiClient.interceptors.request.use(
   (config) => {
     const token = getTokenFromStorage();
@@ -36,8 +33,6 @@ apiClient.interceptors.request.use(
   },
 );
 
-// ─── RESPONSE INTERCEPTOR ────────────────────────────────────────────────────
-// Handles 401 Unauthorized globally (expired/invalid token)
 apiClient.interceptors.response.use(
   (response) => {
     if (import.meta.env.DEV) {
@@ -47,7 +42,6 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid — clear storage and redirect to login
       removeTokenFromStorage();
       window.dispatchEvent(new CustomEvent('auth:logout'));
     }
@@ -60,7 +54,6 @@ apiClient.interceptors.response.use(
       console.error('[API] Server error', error.response.data);
     }
 
-    // Normalize error message for UI consumption
     const message =
       error.response?.data?.message ||
       error.message ||
@@ -70,13 +63,9 @@ apiClient.interceptors.response.use(
   },
 );
 
-// ─── MOCK API HANDLERS ───────────────────────────────────────────────────────
-// These simulate server responses since we don't have a real backend
-
 import { USERS, INITIAL_TASKS } from './mockData';
 import { createToken, isTokenValid as validateToken } from '../utils/jwt';
 
-// In-memory task store (persisted to localStorage)
 function getStoredTasks() {
   try {
     const stored = localStorage.getItem('taskflow_tasks');
@@ -94,7 +83,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const authAPI = {
   login: async (email, password) => {
-    await delay(800); // Simulate network latency
+    await delay(800); 
     const user = USERS.find(
       (u) => u.email === email && u.password === password,
     );

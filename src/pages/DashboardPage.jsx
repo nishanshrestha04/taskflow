@@ -65,6 +65,7 @@ function LoadingSkeleton() {
 export default function DashboardPage() {
   const {
     tasks,
+    allTasks,
     stats,
     isLoading,
     error,
@@ -123,8 +124,7 @@ export default function DashboardPage() {
     if (result?.success) toast('Task deleted', 'info');
   };
 
-  const highPriorityTask =
-    tasks.find((t) => t.priority === 'high' && t.status !== 'done') || tasks[0];
+  const highPriorityTask = allTasks.find((t) => t.priority === 'high' && t.status !== 'done');
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
@@ -186,7 +186,7 @@ export default function DashboardPage() {
                       You have {stats.todo + stats.inProgress} tasks due today.
                     </p>
 
-                    {highPriorityTask && (
+                    {highPriorityTask ? (
                       <div className="bg-red-50/50 border border-red-100 rounded-xl p-3 flex items-center justify-between group cursor-pointer hover:bg-red-50 transition-colors">
                         <div className="flex items-center gap-3">
                           <div className="w-2 h-2 rounded-full bg-red-500"></div>
@@ -196,23 +196,22 @@ export default function DashboardPage() {
                             </p>
                             <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
                               <span className="flex items-center gap-1 text-red-600 font-medium">
-                                ∧ High priority
+                                High priority
                               </span>
                               <span className="flex items-center gap-1">
                                 Due{' '}
-                                {highPriorityTask.dueDate
-                                  ? new Date(
-                                      highPriorityTask.dueDate,
-                                    ).toLocaleDateString('en-US', {
-                                      month: 'short',
-                                      day: 'numeric',
-                                    })
-                                  : 'today'}
+                                {highPriorityTask.dueDate}
                               </span>
                             </div>
                           </div>
                         </div>
                         <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                      </div>
+                    ) : (
+                      <div className="bg-gray-50 border border-gray-100 rounded-xl p-3 flex items-center justify-center">
+                        <p className="text-sm text-gray-500 font-medium">
+                          No high priority tasks
+                        </p>
                       </div>
                     )}
                   </div>

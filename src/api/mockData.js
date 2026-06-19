@@ -1,4 +1,3 @@
-// Simulated users
 export const USERS = [
   {
     id: 1,
@@ -14,7 +13,6 @@ export const USERS = [
   },
 ];
 
-// Simulated task data
 export const INITIAL_TASKS = [
   {
     id: 1,
