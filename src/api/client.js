@@ -18,7 +18,6 @@ apiClient.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    // Log outgoing requests in dev mode
     if (import.meta.env.DEV) {
       console.log(
         `[API Request] ${config.method?.toUpperCase()} ${config.url}`,
@@ -94,7 +93,6 @@ export const authAPI = {
       userId: user.id,
       email: user.email,
       name: user.name,
-      avatar: user.avatar,
     });
     return {
       token,
@@ -102,7 +100,6 @@ export const authAPI = {
         id: user.id,
         email: user.email,
         name: user.name,
-        avatar: user.avatar,
       },
     };
   },

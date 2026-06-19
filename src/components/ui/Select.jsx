@@ -52,12 +52,10 @@ const Select = forwardRef(function Select(
   };
 
   const handleSelect = (opt) => {
-    // Synthesise a change event so callers using e.target.value work unchanged
     onChange?.({ target: { name, value: opt.value } });
     setOpen(false);
   };
 
-  // Close on outside click or scroll
   useEffect(() => {
     if (!open) return;
     const close = (e) => {

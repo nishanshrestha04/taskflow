@@ -5,7 +5,6 @@ import { tasksAPI } from '../api/client';
 const useTaskStore = create(
   devtools(
     (set, get) => ({
-      // ─── State ───────────────────────────────────────────
       tasks: [],
       isLoading: false,
       isSubmitting: false,
@@ -17,7 +16,6 @@ const useTaskStore = create(
         sortBy: 'newest',
       },
 
-      // ─── Actions ─────────────────────────────────────────
       fetchTasks: async () => {
         set({ isLoading: true, error: null });
         try {

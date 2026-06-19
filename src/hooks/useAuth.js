@@ -7,7 +7,6 @@ export function useAuth() {
 
   useEffect(() => {
     initAuth()
-    // Listen for global auth:logout event dispatched by API interceptor
     const handler = () => logout()
     window.addEventListener('auth:logout', handler)
     return () => window.removeEventListener('auth:logout', handler)

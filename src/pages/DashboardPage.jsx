@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Menu, Search, Bell, Plus, ClipboardList, Zap, CheckCircle2, Clock, ChevronRight, AlertCircle } from 'lucide-react';
+import { Menu, Plus, ClipboardList, Zap, CheckCircle2, Clock, ChevronRight, AlertCircle } from 'lucide-react';
 import { useTasks } from '../hooks/useTasks';
 import { useAuth } from '../hooks/useAuth';
 import TaskForm from '../components/tasks/TaskForm';

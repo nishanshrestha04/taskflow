@@ -5,12 +5,10 @@ export function useTasks() {
   const { tasks, isLoading, error, filter, fetchTasks, setFilter, createTask, updateTask, deleteTask } =
     useTaskStore()
 
-  // Fetch tasks on mount
   useEffect(() => {
     fetchTasks()
   }, [fetchTasks])
 
-  // ─── useMemo: compute filtered/sorted tasks only when deps change ───────────
   const filteredTasks = useMemo(() => {
     let result = [...tasks]
 
@@ -22,16 +20,6 @@ export function useTasks() {
       result = result.filter((t) => t.priority === filter.priority)
     }
 
-    if (filter.search.trim()) {
-      const q = filter.search.toLowerCase()
-      result = result.filter(
-        (t) =>
-          t.title.toLowerCase().includes(q) ||
-          t.description?.toLowerCase().includes(q) ||
-          t.tags?.some((tag) => tag.toLowerCase().includes(q))
-      )
-    }
-
     if (filter.sortBy === 'due_asc') {
       result.sort((a, b) => new Date(a.dueDate || '9999-12-31') - new Date(b.dueDate || '9999-12-31'))
     } else if (filter.sortBy === 'due_desc') {
@@ -41,9 +29,8 @@ export function useTasks() {
     }
 
     return result
-  }, [tasks, filter.status, filter.priority, filter.search, filter.sortBy])
+  }, [tasks, filter.status, filter.priority, filter.sortBy])
 
-  // ─── useMemo: summary stats for dashboard ───────────────────────────────────
   const stats = useMemo(
     () => ({
       total: tasks.length,
@@ -55,7 +42,6 @@ export function useTasks() {
     [tasks]
   )
 
-  // ─── useCallback: stable handler references for child components ─────────────
   const handleStatusChange = useCallback(
     (taskId, newStatus) => updateTask(taskId, { status: newStatus }),
     [updateTask]

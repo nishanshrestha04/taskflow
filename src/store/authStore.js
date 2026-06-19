@@ -60,7 +60,6 @@ const useAuthStore = create(
 
         clearError: () => set({ error: null }),
 
-        // Rehydrate auth state on app load (check if stored token is still valid)
         initAuth: () => {
           const token = getTokenFromStorage();
           if (token && isTokenValid(token)) {

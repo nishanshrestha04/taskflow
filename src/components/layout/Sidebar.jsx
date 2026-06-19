@@ -23,7 +23,6 @@ export default function Sidebar({ isOpen, onClose }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileRef = useRef(null);
 
-  // Close dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
@@ -86,7 +85,7 @@ export default function Sidebar({ isOpen, onClose }) {
         <div className="flex-1 px-4 py-2 space-y-8 overflow-y-auto">
           <nav className="space-y-1">
             {navItems.map((item) => {
-              const isActive = item.path === '/dashboard'; // Only Dashboard is active
+              const isActive = item.path === '/dashboard';
               return (
                 <a
                   key={item.label}

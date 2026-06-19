@@ -15,7 +15,6 @@ export default function Modal({
     lg: 'max-w-2xl',
   };
 
-  // Close on Escape key — useCallback to avoid re-registering on every render
   const handleKeyDown = useCallback(
     (e) => {
       if (e.key === 'Escape') onClose();

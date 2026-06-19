@@ -15,7 +15,6 @@ export default function LoginPage() {
     if (isAuthenticated) navigate('/dashboard', { replace: true });
   }, [isAuthenticated, navigate]);
 
-  // Clear API error when user starts typing
   useEffect(() => {
     if (error) clearError();
   }, [form.email, form.password]);
