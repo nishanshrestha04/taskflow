@@ -1,9 +1,9 @@
-import { useCallback, memo } from 'react';
+import { useCallback, memo, useState } from 'react';
 import { Pencil, Trash2, AlertTriangle } from 'lucide-react';
 import Badge from '../ui/Badge';
 import Button from '../ui/Button';
+import ConfirmDialog from '../ui/ConfirmDialog';
 
-// memo prevents re-render unless task/handlers actually change
 const TaskCard = memo(function TaskCard({
   task,
   onStatusChange,
@@ -22,13 +22,16 @@ const TaskCard = memo(function TaskCard({
     onStatusChange(task.id, cycle[task.status]);
   }, [task.id, task.status, onStatusChange]);
 
+  const [showConfirm, setShowConfirm] = useState(false);
+
   const isOverdue =
     task.status !== 'done' &&
     task.dueDate &&
     new Date(task.dueDate) < new Date();
 
   return (
-    <div className="group bg-white rounded-xl border border-gray-200 p-4 hover:border-indigo-200 hover:shadow-sm transition-all duration-200 flex flex-col gap-3">
+    <>
+      <div className="group bg-white rounded-xl border border-gray-200 p-4 hover:border-indigo-200 hover:shadow-sm transition-all duration-200 flex flex-col gap-3">
       {/* Header */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
@@ -55,7 +58,7 @@ const TaskCard = memo(function TaskCard({
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => onDelete(task.id)}
+            onClick={() => setShowConfirm(true)}
             disabled={isSubmitting}
             className="text-gray-400 hover:text-red-600 hover:bg-red-50"
             aria-label="Delete task"
@@ -112,6 +115,18 @@ const TaskCard = memo(function TaskCard({
         </div>
       </div>
     </div>
+
+      <ConfirmDialog
+        isOpen={showConfirm}
+        title="Delete task?"
+        message="This will permanently remove the task. This action cannot be undone."
+        confirmLabel="Delete"
+        onConfirm={() => { onDelete(task.id); setShowConfirm(false); }}
+        onCancel={() => setShowConfirm(false)}
+        isLoading={isSubmitting}
+        danger
+      />
+    </>
   );
 });
 

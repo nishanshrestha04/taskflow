@@ -2,8 +2,6 @@ import { useState, useRef, useEffect, useCallback, forwardRef } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronDown, Check } from 'lucide-react';
 
-// Custom dropdown — uses a portal so the menu escapes any parent
-// transform/overflow context (which causes native <select> to misrender).
 const Select = forwardRef(function Select(
   {
     label,
